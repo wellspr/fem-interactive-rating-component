@@ -1,6 +1,4 @@
-// State variable
-let ratingValue = "";
-
+// Manage pages views
 const pages = document.querySelectorAll(".page");
 
 const setActivePage = (pageId) => {
@@ -15,6 +13,9 @@ const setActivePage = (pageId) => {
 };
 
 setActivePage("rating");
+
+// Manage ratings
+let ratingValue = "";
 
 const ratingBullets = document.querySelectorAll(".rating-bullet");
 
@@ -37,10 +38,10 @@ Object.values(ratingBullets).map((bullet, index) => {
     return null;
 });
 
+// Submit
 const submitBtn = document.getElementById("submit");
 
 submitBtn.addEventListener("click", () => {
-    console.log("Click!", ratingValue);
     if (ratingValue === "") {
         alert("Please select a rating.")
         return null;

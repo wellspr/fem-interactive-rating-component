@@ -1,22 +1,18 @@
 # Frontend Mentor - Interactive rating component solution
 
-This is a solution to the [Interactive rating component challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-rating-component-koxpeBUmI). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Interactive rating component challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/interactive-rating-component-koxpeBUmI).
 
 ## Table of contents
 
 - [Overview](#overview)
   - [The challenge](#the-challenge)
-  - [Screenshot](#screenshot)
+  - [Screenshots](#screenshots)
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -29,85 +25,112 @@ Users should be able to:
 - Select and submit a number rating
 - See the "Thank you" card state after submitting a rating
 
-### Screenshot
+### Screenshots
 
-![](./screenshot.jpg)
+![](./screenshots/fem-interactive-rating-component-three-vercel-app-1024x768desktop-8c4d5e.jpg)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
+![](./screenshots/fem-interactive-rating-component-three-vercel-app-480x800phone-8c4d5e.jpg)
 
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
 
 ### Links
 
 - Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [https://fem-interactive-rating-component-wellspr.vercel.app/](https://fem-interactive-rating-component-wellspr.vercel.app/)
 
 ## My process
 
 ### Built with
 
-- Semantic HTML5 markup
+- HTML5 markup
 - CSS custom properties
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- Vanilla javascript :)
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+I used this challenge to revisit the vanilla javascript way of programing applications, with the idea of state in mind. State is the central idea of javascript frameworks such as React, but I wanted to bring a more basic and really starter solution to this challenge.
 
-To see how you can add code snippets, see below:
+I kept the single html file containing all the code for both the component views, therefore adopting a single-page-application paradigm.
+Then I wrapped each view inside a separate div with the same class *page* and distinct *id*'s, like so:
 
 ```html
-<h1>Some HTML code I'm proud of</h1>
+<div id="rating" class="page">
+  <!-- rating state markup -->
+</div>
+
+<div id="thank-you" class="page">
+  <!-- thank-you state markup -->
+</div>
 ```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
+
+Then at the javascript file I add a function to programmatically set the active state, by making use of the css *display* property:
+
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
-}
+const pages = document.querySelectorAll(".page");
+
+const setActivePage = (pageId) => {
+    Object.values(pages).map(page => {
+        if (page.id === pageId) {
+            page.style.display = "flex";
+        }
+        else {
+            page.style.display = "none";
+        }
+    });
+};
+
+setActivePage("rating");
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+Then, as the user chooses a rating and clicks the "submit" button, the state can be changed with the following code,
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```js
+submitBtn.addEventListener("click", () => {
+    setActivePage("thank-you");
+});
+```
 
-### Continued development
+where `submitBtn` is a DOM reference to the submit button.
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+**The rating value**
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+To manage the rating value, I created a global variable to hold one of the possible values ranging from 1 to 5, initially as an empty string:
 
-### Useful resources
+```js
+let ratingValue = "";
+```
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+Then it is possible to get hold of the DOM references of each of the circles representing the rating, and add *onclick* event listeners to each of them, in such a way that a css class of say, "selected" could be added to a given circle as the user clicks it. Also, another iteration is worked out to unselect any previous selection.
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+Most important, at any click on a rating circle, the value of the variable `ratingValue` is updated to the corresponding value. My code ended up like so:
+
+```js
+let ratingValue = "";
+
+const ratingBullets = document.querySelectorAll(".rating-bullet");
+
+Object.values(ratingBullets).map((bullet, index) => {
+    const selectRating = () => {
+        bullet.classList.add("selected");
+        ratingValue = bullet.textContent;
+        document.getElementById("rating-value").innerHTML = ratingValue;
+        const selectedIndex = index;
+        
+        Object.values(ratingBullets).map((bullet, index) => {
+            if (index !== selectedIndex) {
+                bullet.classList.remove("selected");
+            }
+        });
+    };
+
+    bullet.addEventListener("click", selectRating);
+
+    return null;
+});
+```
+
+<!-- If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more. -->
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Frontend Mentor - [@wellspr](https://www.frontendmentor.io/profile/wellspr)
