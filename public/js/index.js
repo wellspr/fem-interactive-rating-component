@@ -34,11 +34,6 @@ Object.values(ratingBullets).map((bullet, index) => {
 
     bullet.addEventListener("click", selectRating);
 
-    // return () => {
-    //     bullet.removeEventListener("click", selectRating);
-    // };
-    // bullet.removeEventListener("click", selectRating);
-
     return null;
 });
 
