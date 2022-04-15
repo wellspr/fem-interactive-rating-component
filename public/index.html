@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="This is a solution to the Interactive rating component challenge on Frontend Mentor">
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   
   <title>Frontend Mentor | Interactive rating component</title>
@@ -13,79 +13,70 @@
 </head>
 <body>
 
-  <div class="wrapper">
+  <main>
 
-    <div id="rating" class="page">
-      <!-- Rating state start -->
+    <section id="rating" class="page">
+      <div class="rating-card" role="dialog" aria-labelledby="dialog1Heading" aria-describedby="dialog1Description">
+        <figure class="star">
+          <img src="./assets/images/icon-star.svg" alt="icon-star" />
+        </figure>
 
-      <div class="rating-card">
-        <div class="star">
-          <img src="./assets/images/icon-star.svg" />
-        </div>
+        <h1 id="dialog1Heading" class="rating-header">How did we do?</h1>
 
-        <h1 class="rating-header">How did we do?</h1>
+        <p id="dialog1Description" class="rating-text">Please let us know how we did with your support request. All feedback is appreciated 
+        to help us improve our offering!</p>
 
-        <div>
-          <span class="rating-text">Please let us know how we did with your support request. All feedback is appreciated 
-          to help us improve our offering!</span>
-        </div>
+        <form>
+          <ul class="rating-options" role="listbox" aria-label="Choose a rating from 1 to 5">
+            <li class="rating-bullet" tabindex="0" role="option" aria-selected="false">
+              <span role="presentation">1</span>
+            </li>
+            <li class="rating-bullet" tabindex="0" role="option" aria-selected="false">
+              <span role="presentation">2</span>
+            </li>
+            <li class="rating-bullet" tabindex="0" role="option" aria-selected="false">
+              <span role="presentation">3</span>
+            </li>
+            <li class="rating-bullet" tabindex="0" role="option" aria-selected="false">
+              <span role="presentation">4</span>
+            </li>
+            <li class="rating-bullet" tabindex="0" role="option" aria-selected="false">
+              <span role="presentation">5</span>
+            </li>
+          </ul>
 
-        <div class="rating-options">
-          <div class="rating-bullet">
-            <span>1</span>
-          </div>
-          <div class="rating-bullet">
-            <span>2</span>
-          </div>
-          <div class="rating-bullet">
-            <span>3</span>
-          </div>
-          <div class="rating-bullet">
-            <span>4</span>
-          </div>
-          <div class="rating-bullet">
-            <span>5</span>
-          </div>
-        </div>
-
-        <div id="submit" class="btn">
-          Submit
-        </div>
-
+          <button id="submitBtn" type="submit" class="btn" role="button">
+            Submit
+          </button>
+        </form>
       </div>
+    </section>
 
-      <!-- Rating state end -->
-    </div>
+    <section id="thank-you" class="page">
+      <div class="thank-you-card" role="dialog" aria-labelledby="dialog2Heading" aria-describedby="dialog2Description">
+        <figure class="thank-you-image">
+          <img src="assets/images/illustration-thank-you.svg" alt="illustration-thank-you" />
+        </figure>
 
-    <div id="thank-you" class="page">
-      <!-- Thank you state start -->
+        <div class="rating-feedback" role="none">You selected <span id="rating-value"></span> out of 5</div>
 
-      <div class="thank-you-card">
+        <h2 id="dialog2Heading" class="thank-you-header">Thank you!</h2>
 
-        <div class="thank-you-image">
-          <img src="assets/images/illustration-thank-you.svg"/>
-        </div>
-
-        <div class="rating-feedback">You selected <span id="rating-value"></span> out of 5</div>
-
-        <h2 class="thank-you-header">Thank you!</h2>
-
-        <div class="thank-you-text">
-          <span>We appreciate you taking the time to give a rating. If you ever need more support, 
-          don’t hesitate to get in touch!</span>
-        </div>
-
-        <!-- Thank you state end -->
+        <p id="dialog2Description" class="thank-you-text">
+          We appreciate you taking the time to give a rating. If you ever need more support, 
+          don’t hesitate to get in touch!
+        </p>
       </div>
+    </section>
 
-    </div>
+    <footer>
+      <div class="attribution">
+        Challenge by <a href="https://www.frontendmentor.io/challenges/interactive-rating-component-koxpeBUmI" target="_blank">Frontend Mentor</a>. 
+        Coded by <a href="https://github.com/wellspr">Paulo Wells</a>.
+      </div>
+    </footer>
 
-    <div class="attribution">
-      Challenge by <a href="https://www.frontendmentor.io/challenges/interactive-rating-component-koxpeBUmI" target="_blank">Frontend Mentor</a>. 
-      Coded by <a href="https://github.com/wellspr">Paulo Wells</a>.
-    </div>
-
-  </div>
+  </main>
 
   <script src="js/index.js"></script>
 
